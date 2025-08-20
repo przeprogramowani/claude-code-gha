@@ -1,15 +1,16 @@
 name: Pull Request Analysis
 
 on:
-  workflow_dispatch:
-  push:
-    branches: [master]
   pull_request:
     branches: [master]
 
 jobs:
   analyze:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
 
     steps:
       - name: Checkout code
@@ -29,8 +30,13 @@ jobs:
 
       - name: Run Claude Code Review
         run: |
-          claude -p .ai/prompts/code-review.md \
-          --append-system-prompt .ai/prompts/code-review.md \
-          --allowedTools "Bash(git *)"
+          claude -p .ai/prompts/code-review.md --allowedTools "Bash(git *)" > claude-review.md
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Comment PR with Claude Code Review
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: claude-code-review
+          path: claude-review.md
