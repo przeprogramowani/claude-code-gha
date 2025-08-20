@@ -85,21 +85,10 @@ jobs:
             echo "changed=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Configure Git
+      - name: Commit and push changes
         if: steps.detect_changes.outputs.changed == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Commit changes
-        if: steps.detect_changes.outputs.changed == 'true'
-        run: |
-          git add -A
-          git commit -m "chore: apply Claude suggestions"
-
-      - name: Push changes
-        if: steps.detect_changes.outputs.changed == 'true'
-        env:
-          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
-        run: |
-          git push origin HEAD:$PR_BRANCH
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: '-A'
+          default_author: github_actions
+          message: 'chore: apply Claude suggestions'
