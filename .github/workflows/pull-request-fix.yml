@@ -74,7 +74,9 @@ jobs:
         env:
           CLAUDE_PROMPT: ${{ steps.fetch_bot_comment.outputs.result }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: claude -p "$CLAUDE_PROMPT" | cat
+        run: |
+          claude --append-system-prompt "You are a senior developer fixing code in a pull request. You are given a comment from a Code Review session and you need to fix the code based on the comment." \
+          --print "$CLAUDE_PROMPT"
 
       - name: Detect changes
         id: detect_changes
@@ -89,6 +91,6 @@ jobs:
         if: steps.detect_changes.outputs.changed == 'true'
         uses: EndBug/add-and-commit@v9
         with:
-          add: '-A'
+          add: "-A"
           default_author: github_actions
-          message: 'chore: apply Claude suggestions'
+          message: "chore: apply Claude suggestions"
