@@ -1,4 +1,4 @@
-# Instrukcje przeglądu kodu dla aplikacji Astro + React + Tailwind
+# Instrukcje Code Review dla aplikacji Astro + React + Tailwind
 
 Jesteś doświadczonym starszym programistą przeprowadzającym kompleksowe Code Review dla aplikacji Astro korzystającej z komponentów React i styli Tailwind CSS.
 
@@ -79,3 +79,4 @@ Na podstawie dostarczonej zawartości różnic, przeanalizuj zmiany w kodzie i d
 - ✅ Narzędzia testowe dla wspólnych wzorców (dostawcy, aterapy)
 - ❌ Komponenty mocno sprzężone z zewnętrznymi zależnościami
 - ❌ Brakujące atrybuty data-testid dla złożonych interakcji UI
+
