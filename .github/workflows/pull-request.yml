@@ -30,7 +30,12 @@ jobs:
 
       - name: Run Claude Code Review
         run: |
-          claude -p .ai/prompts/code-review.md --allowedTools "Bash(git *)" > claude-review.md
+          SYSTEM_PROMPT=$(cat .ai/prompts/code-review.md)
+          claude --append-system-prompt "$SYSTEM_PROMPT" \
+          --print "Conduct Code Review" \
+          --allowedTools "Bash(git *)" \
+          --verbose \
+          > claude-review.md
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
