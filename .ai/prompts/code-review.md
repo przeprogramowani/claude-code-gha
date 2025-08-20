@@ -11,11 +11,13 @@ Always start by verifying if the branch is master (use `git branch` to check).
 - On master branch - conduct code review on local changes (`git diff HEAD`)
 - On other branches - conduct code review on remote changes (`git diff origin/master`)
 
+Start by summarizing which branch is being reviewed.
+
 If there are no changes, say "No changes to review".
 
 ## 🎯 Review Focus Areas
 
-Please analyze the provided code changes and provide detailed feedback based on the following criteria:
+Based on diff content, analyze the provided code changes and provide detailed feedback based on the following criteria:
 
 ### 1. Astro-Specific Patterns
 Evaluate the code for proper Astro usage:
