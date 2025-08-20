@@ -28,6 +28,9 @@ jobs:
         run: npm install -g @anthropic-ai/claude-code
 
       - name: Run Claude Code Review
-        run: claude -p .ai/prompts/code-review.md
+        run: |
+          claude -p .ai/prompts/code-review.md \
+          --append-system-prompt .ai/prompts/code-review.md \
+          --allowedTools "Bash(git *)"
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
