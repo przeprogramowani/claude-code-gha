@@ -35,7 +35,7 @@ jobs:
           PR_DIFF=$(git diff origin/master...HEAD)
           CLAUDE_CR_PROMPT=$(cat .ai/prompts/code-review.md)
           claude --append-system-prompt "$CLAUDE_CR_PROMPT" \
-            --print "Changes to review:\n\n $PR_DIFF" \
+            --print "Przeprowadź Code Review:\n\n $PR_DIFF" \
             > claude-review.md
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

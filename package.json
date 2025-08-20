@@ -9,6 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/node": "^9.4.2",
     "@astrojs/react": "^4.3.0",
     "@tailwindcss/vite": "^4.1.12",
     "@types/react": "^19.1.10",
@@ -17,6 +19,8 @@
     "lucide-react": "^0.540.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.12"
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5.9.2",
+    "zustand": "^5.0.8"
   }
 }

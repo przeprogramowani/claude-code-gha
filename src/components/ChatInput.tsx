@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 
 interface ChatInputProps {
@@ -8,6 +8,7 @@ interface ChatInputProps {
 
 export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
   const [message, setMessage] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = () => {
     if (message.trim() && !disabled) {
@@ -16,12 +17,25 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
     }
   };
+
+  const adjustHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = '48px';
+      const scrollHeight = textarea.scrollHeight;
+      textarea.style.height = Math.min(scrollHeight, 128) + 'px';
+    }
+  };
+
+  useEffect(() => {
+    adjustHeight();
+  }, [message]);
 
   return (
     <div className="bg-white border-t border-gray-200 p-4">
@@ -29,28 +43,24 @@ export default function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
         <div className="flex gap-3 items-end">
           <div className="flex-1 relative">
             <textarea
+              ref={textareaRef}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyDown}
               placeholder="Type your message here..."
               disabled={disabled}
               rows={1}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:cursor-not-allowed min-h-[48px] max-h-32"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:cursor-not-allowed min-h-[48px] max-h-32 overflow-hidden leading-6"
               style={{
-                height: 'auto',
-                minHeight: '48px',
-              }}
-              onInput={(e) => {
-                const target = e.target as HTMLTextAreaElement;
-                target.style.height = 'auto';
-                target.style.height = Math.min(target.scrollHeight, 128) + 'px';
+                height: '48px',
+                lineHeight: '1.5',
               }}
             />
           </div>
           <button
             onClick={handleSubmit}
             disabled={!message.trim() || disabled}
-            className="px-6 py-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 min-w-[80px] flex items-center justify-center"
+            className="px-6 py-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 min-w-[80px] flex items-center justify-center h-12"
           >
             {disabled ? (
               <Loader2 size={20} className="animate-spin" />
