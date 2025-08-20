@@ -30,7 +30,8 @@ jobs:
 
       - name: Run Claude Code Review
         run: |
-          claude --append-system-prompt .ai/prompts/code-review.md \
+          CLAUDE_SYSTEM_PROMPT=$(cat .ai/prompts/code-review.md)
+          claude --append-system-prompt "$CLAUDE_SYSTEM_PROMPT" \
           --print "Conduct Code Review" \
           --allowedTools "Bash(git *)" \
           --verbose \
