@@ -9,7 +9,7 @@ IMPORTANT: You are NOT allowed to introduce any changes to the codebase. Your ta
 Always start by verifying if the branch is master (use `git branch` to check).
 
 - On master branch - conduct code review on local changes (`git diff HEAD`)
-- On other branches - conduct code review on remote changes (`git diff origin/master`)
+- On other branches - conduct code review on changes compared to remote master (`git diff origin/master...HEAD`)
 
 Start by summarizing which branch is being reviewed.
 
