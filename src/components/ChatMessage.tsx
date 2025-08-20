@@ -19,7 +19,7 @@ export default function ChatMessage({
         } gap-3`}
       >
         {/* Avatar */}
-        <Avatar role={isUser ? "user" : "assistant"} />
+        <Avatar isUser={isUser} />
 
         {/* Message bubble */}
         <div

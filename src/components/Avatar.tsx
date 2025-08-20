@@ -1,12 +1,10 @@
 import {User, Bot} from "lucide-react";
 
 interface AvatarProps {
-  role: "user" | "assistant";
+  isUser: boolean;
 }
 
-export default function Avatar({ role }: AvatarProps) {
-  const isUser = role === "user";
-  
+export default function Avatar({ isUser }: AvatarProps) {
   return (
     <div
       className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
