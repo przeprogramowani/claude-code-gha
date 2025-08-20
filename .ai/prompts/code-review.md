@@ -15,6 +15,36 @@ OCENA ZMIAN:
 - 👮‍♂️ Upomnienie
 - ❌ Wymagane zmiany
 
+## Kategorie sugestii
+
+Podczas przeprowadzania Code Review klasyfikuj swoje uwagi w trzy kategorie:
+
+### 🚫 BLOCKERY
+- Krytyczne błędy bezpieczeństwa (XSS, SQL injection, CSRF)
+- Poważne problemy wydajnościowe powodujące znaczne spowolnienia
+- Błędy logiczne mogące prowadzić do utraty danych lub crash aplikacji
+- Naruszenia kluczowych wzorców architektonicznych
+- Brakujące granice błędów w krytycznych komponentach
+- Potencjalne memory leaks lub nieskończone pętle
+
+### ⚠️ MAJORY
+- Problemy z dostępnością (WCAG violations)
+- Nieprawidłowe zarządzanie stanem globalnym
+- Brakujące error handling
+- Problemy z TypeScript safety (nadużywanie any, missing types)
+- Niespójności z established code patterns
+- Problemy wydajnościowe w komponentach kluczowych
+- Brakujące testy dla nowej funkcjonalności
+
+### 📝 MINORY
+- Sugestie dotyczące czytelności kodu
+- Możliwości refactoringu dla lepszej maintainability
+- Optymalizacje wydajnościowe w mniej krytycznych obszarach
+- Ulepszenia w nazewnictwie zmiennych/funkcji
+- Dodatkowe edge cases w testach
+- Dokumentacja kodu (JSDoc comments)
+- Formatting i style inconsistencies
+
 ### Nowoczesne Wzorce React 18/19 i Architektura
 
 #### 1. **Implementacja Concurrent Features**
