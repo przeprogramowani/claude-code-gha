@@ -10,7 +10,7 @@ export default defineConfig({
   integrations: [react()],
   output: "server",
   server: {
-    port: 3000,
+    port: 3456,
   },
 
   vite: {
