@@ -77,7 +77,8 @@ jobs:
         run: |
           CLAUDE_CR_PROMPT=$(cat .ai/prompts/code-review-fix.md)
           claude --append-system-prompt "$CLAUDE_CR_PROMPT" \
-          --print "$CLAUDE_PROMPT"
+          --print "$CLAUDE_PROMPT" \
+          --permission-mode "acceptEdits"
 
       - name: Detect changes
         id: detect_changes
