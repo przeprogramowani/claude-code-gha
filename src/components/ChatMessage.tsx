@@ -1,4 +1,4 @@
-import {User, Bot} from "lucide-react";
+import Avatar from "./Avatar";
 
 interface ChatMessageProps {
   content: string;
@@ -19,13 +19,7 @@ export default function ChatMessage({
         } gap-3`}
       >
         {/* Avatar */}
-        <div
-          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-            isUser ? "bg-purple-500 text-white" : "bg-gray-200 text-gray-600"
-          }`}
-        >
-          {isUser ? <User size={16} /> : <Bot size={16} />}
-        </div>
+        <Avatar role={isUser ? "user" : "assistant"} />
 
         {/* Message bubble */}
         <div
