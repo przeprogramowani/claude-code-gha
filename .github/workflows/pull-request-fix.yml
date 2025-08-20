@@ -75,7 +75,8 @@ jobs:
           CLAUDE_PROMPT: ${{ steps.fetch_bot_comment.outputs.result }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          claude --append-system-prompt "You are a senior developer fixing code in a pull request. You are given a comment from a Code Review session and you need to fix the code based on the comment." \
+          CLAUDE_CR_PROMPT=$(cat .ai/prompts/code-review-fix.md)
+          claude --append-system-prompt "$CLAUDE_CR_PROMPT" \
           --print "$CLAUDE_PROMPT"
 
       - name: Detect changes
