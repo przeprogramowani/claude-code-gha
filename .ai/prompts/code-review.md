@@ -86,3 +86,49 @@ OCENA ZMIAN:
 - ✅ Narzędzia testowe dla wspólnych wzorców (dostawcy, aterapy)
 - ❌ Komponenty mocno sprzężone z zewnętrznymi zależnościami
 - ❌ Brakujące atrybuty data-testid dla złożonych interakcji UI
+
+### TypeScript
+
+#### 1. **Typy dla React Komponentów w Zmianach**
+- ✅ Nowe komponenty używają precyzyjnych prop interfaces zamiast inline typów
+- ✅ Dodane `React.FC<Props>` lub funkcyjne typy komponentów
+- ✅ Właściwe użycie `children?: React.ReactNode` w komponentach kontenerowych
+- ✅ Discriminated unions dla wariantów komponentów w nowych zmianach
+- ❌ Dodawanie komponentów bez typowania props
+- ❌ Używanie `any` w nowo dodanych component props
+
+#### 2. **Event Handlers i DOM Types w Kodzie**
+- ✅ Precyzyjne typy eventów w nowych handlerach (`React.MouseEvent<HTMLButtonElement>`)
+- ✅ Właściwe typy dla refs w dodanych komponentach (`React.RefObject<HTMLInputElement>`)
+- ✅ Forward refs z correct typing w nowych komponentach
+- ❌ Event handlery bez typowania lub z `any`
+- ❌ Refs bez właściwych DOM element types
+
+#### 3. **Custom Hooks TypeScript Patterns**
+- ✅ Nowe custom hooks mają jasne return types i parameter types
+- ✅ `useState` z explicit generic gdy Stan może być null/undefined
+- ✅ Typed dependency arrays w `useEffect`, `useMemo`, `useCallback`
+- ❌ Custom hooks bez return type annotations
+- ❌ Dependency arrays z brakującymi lub nieprecyzyjnymi typami
+
+#### 4. **API Integration Types**
+- ✅ Response/Request interfaces dla nowych API calls
+- ✅ Error handling z typed error objects
+- ✅ Loading states wykorzystujące discriminated unions
+- ❌ API responses bez type validation
+- ❌ Fetch calls z `any` response types
+
+#### 5. **TypeScript Best Practices w Zmianach**
+- ✅ Konsekwentne użycie `import type` dla type-only importów
+- ✅ Utility types (`Partial<T>`, `Pick<T, K>`) zamiast manual type definitions
+- ✅ Template literal types dla string unions gdy potrzebne
+- ✅ `as const` assertions dla immutable data
+- ❌ Nadużywanie `any` lub type assertions `as`
+- ❌ Nadmiernie skomplikowane typy bez business justification
+
+#### 6. **Form i Input Handling Types**
+- ✅ Proper form event types (`React.FormEvent<HTMLFormElement>`)
+- ✅ Input change events z correct target types
+- ✅ Form validation schemas z type inference (Zod/Yup)
+- ❌ Form handlers bez event typing
+- ❌ Input values bez proper string/number type handling
