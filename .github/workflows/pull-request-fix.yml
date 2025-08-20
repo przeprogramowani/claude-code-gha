@@ -1,0 +1,32 @@
+name: Claude Code Support
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  claude-support:
+    if: contains(github.event.label.name, 'claude-code-support')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Claude Code SDK
+        run: npm install -g @anthropic-ai/claude-code
