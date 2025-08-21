@@ -1,50 +1,40 @@
-function Clock() {
-  let now: any = new Date();
-  let time: any =
-    now.getHours().toString().padStart(2, "0") +
-    ":" +
-    now.getMinutes().toString().padStart(2, "0") +
-    ":" +
-    now.getSeconds().toString().padStart(2, "0");
-  let element: any;
+import { useState, useEffect, useRef } from 'react';
 
-  setTimeout(() => {
-    if (element) {
-      let newNow: any = new Date();
-      element.innerHTML =
-        newNow.getHours().toString().padStart(2, "0") +
-        ":" +
-        newNow.getMinutes().toString().padStart(2, "0") +
-        ":" +
-        newNow.getSeconds().toString().padStart(2, "0");
-    }
-  }, 1000);
+interface ClockProps {}
 
-  setInterval(() => {
-    if (element) {
-      let newNow: any = new Date();
-      element.innerHTML =
-        newNow.getHours().toString().padStart(2, "0") +
-        ":" +
-        newNow.getMinutes().toString().padStart(2, "0") +
-        ":" +
-        newNow.getSeconds().toString().padStart(2, "0");
-    }
-  }, 1000);
+function Clock({}: ClockProps) {
+  const [time, setTime] = useState<string>('');
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const formatTime = (date: Date): string => {
+    return [
+      date.getHours().toString().padStart(2, '0'),
+      date.getMinutes().toString().padStart(2, '0'),
+      date.getSeconds().toString().padStart(2, '0')
+    ].join(':');
+  };
+
+  useEffect(() => {
+    const updateTime = () => {
+      setTime(formatTime(new Date()));
+    };
+
+    updateTime();
+
+    intervalRef.current = setInterval(updateTime, 1000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <div
-      ref={(el: any) => {
-        element = el;
-      }}
-      style={{
-        color: "black",
-        fontSize: "18px",
-        fontWeight: "bold",
-        minWidth: "70px",
-        textAlign: "center",
-        fontFamily: "monospace",
-      }}>
+    <div 
+      className="text-black text-lg font-bold min-w-[70px] text-center font-mono"
+      aria-label="Current time"
+    >
       {time}
     </div>
   );
