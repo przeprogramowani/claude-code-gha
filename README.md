@@ -1,6 +1,6 @@
-# ChatGPT 10
+# 10xChat
 
-Vibe Coded app emulating ChatGPT 10.
+Vibe Coded app emulating 10xChat.
 
 ## 🚀 Project Structure
 
