@@ -6,6 +6,7 @@ import ChatSidebar from "./ChatSidebar";
 import MobileHeader from "./MobileHeader";
 import { useChatStore } from "../stores/chatStore";
 import { useChatMigration } from "../hooks/useChatMigration";
+import Clock from "./Clock";
 
 export default function ChatInterface() {
   const [isLoading, setIsLoading] = useState(false);
