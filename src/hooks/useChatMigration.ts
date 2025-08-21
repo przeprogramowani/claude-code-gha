@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useChatStore } from '../stores/chatStore';
+import { useEffect } from "react";
+import { useChatStore } from "../stores/chatStore";
 
 interface LegacyMessage {
   id: string;
@@ -14,29 +14,27 @@ export const useChatMigration = () => {
   useEffect(() => {
     const migrateLegacyData = () => {
       try {
-        const legacyMessages = localStorage.getItem('chatMessages');
+        const legacyMessages = localStorage.getItem("chatMessages");
         if (legacyMessages && threads.length === 0) {
           const messages: LegacyMessage[] = JSON.parse(legacyMessages);
-          
+
           if (messages.length > 0) {
             const threadId = createThread();
-            
+
             messages.forEach((message) => {
               const migratedMessage = {
                 ...message,
-                timestamp: typeof message.timestamp === 'string' 
-                  ? new Date(message.timestamp) 
-                  : message.timestamp,
+                timestamp: typeof message.timestamp === "string" ? new Date(message.timestamp) : message.timestamp,
               };
-              
+
               addMessage(threadId, migratedMessage);
             });
-            
-            localStorage.removeItem('chatMessages');
+
+            localStorage.removeItem("chatMessages");
           }
         }
       } catch (error) {
-        console.warn('Failed to migrate legacy chat data:', error);
+        console.warn("Failed to migrate legacy chat data:", error);
       }
     };
 

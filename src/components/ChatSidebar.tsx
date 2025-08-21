@@ -1,6 +1,6 @@
-import { Plus, X } from 'lucide-react';
-import { useChatStore } from '../stores/chatStore';
-import ThreadItem from './ThreadItem';
+import { Plus, X } from "lucide-react";
+import { useChatStore } from "../stores/chatStore";
+import ThreadItem from "./ThreadItem";
 
 interface ChatSidebarProps {
   isOpen: boolean;
@@ -8,19 +8,10 @@ interface ChatSidebarProps {
 }
 
 export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
-  const { 
-    threads, 
-    activeThreadId, 
-    hasHydrated,
-    createThread, 
-    switchThread, 
-    deleteThread, 
-    updateThreadTitle 
-  } = useChatStore();
+  const { threads, activeThreadId, hasHydrated, createThread, switchThread, deleteThread, updateThreadTitle } =
+    useChatStore();
 
-  const sortedThreads = threads.sort((a, b) => 
-    new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-  );
+  const sortedThreads = threads.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
 
   const handleNewChat = () => {
     createThread();
@@ -39,19 +30,13 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
   return (
     <>
       {/* Mobile overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-          onClick={onClose}
-        />
-      )}
-      
+      {isOpen && <div className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" onClick={onClose} />}
+
       {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-80 bg-white border-r border-gray-200 z-50 transform transition-transform duration-300 ease-in-out md:relative md:transform-none md:z-auto ${
-          isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-        }`}
-      >
+          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}>
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -60,15 +45,13 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
               <button
                 onClick={handleNewChat}
                 className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                title="New chat"
-              >
+                title="New chat">
                 <Plus size={20} className="text-gray-600" />
               </button>
               <button
                 onClick={onClose}
                 className="p-2 rounded-lg hover:bg-gray-100 transition-colors md:hidden"
-                title="Close sidebar"
-              >
+                title="Close sidebar">
                 <X size={20} className="text-gray-600" />
               </button>
             </div>
@@ -88,8 +71,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
                 <p className="text-sm">No conversations yet</p>
                 <button
                   onClick={handleNewChat}
-                  className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
-                >
+                  className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm">
                   Start your first chat
                 </button>
               </div>
