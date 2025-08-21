@@ -1,120 +1,65 @@
+import { useState, useEffect } from "react";
 import { Clock as ClockIcon } from "lucide-react";
 
+interface TimeData {
+  time: string;
+  date: string;
+}
+
+const POLISH_MONTHS = [
+  "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca",
+  "lipca", "sierpnia", "września", "października", "listopada", "grudnia"
+] as const;
+
+const POLISH_DAYS = [
+  "niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"
+] as const;
+
+const useClock = (): TimeData => {
+  const [currentTime, setCurrentTime] = useState<Date>(() => new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (date: Date): string => {
+    return [
+      date.getHours().toString().padStart(2, "0"),
+      date.getMinutes().toString().padStart(2, "0"),
+      date.getSeconds().toString().padStart(2, "0")
+    ].join(":");
+  };
+
+  const formatDate = (date: Date): string => {
+    const dayName = POLISH_DAYS[date.getDay()];
+    const day = date.getDate();
+    const monthName = POLISH_MONTHS[date.getMonth()];
+    const year = date.getFullYear();
+    
+    return `${dayName}, ${day} ${monthName} ${year}`;
+  };
+
+  return {
+    time: formatTime(currentTime),
+    date: formatDate(currentTime)
+  };
+};
+
 function Clock() {
-  let now: any = new Date();
-  let time: any =
-    now.getHours().toString().padStart(2, "0") +
-    ":" +
-    now.getMinutes().toString().padStart(2, "0") +
-    ":" +
-    now.getSeconds().toString().padStart(2, "0");
-
-  let polishMonths: any = [
-    "stycznia",
-    "lutego",
-    "marca",
-    "kwietnia",
-    "maja",
-    "czerwca",
-    "lipca",
-    "sierpnia",
-    "września",
-    "października",
-    "listopada",
-    "grudnia",
-  ];
-  let polishDays: any = ["niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"];
-
-  let dateStr: any =
-    polishDays[now.getDay()] + ", " + now.getDate() + " " + polishMonths[now.getMonth()] + " " + now.getFullYear();
-
-  let timeElement: any;
-  let dateElement: any;
-
-  setTimeout(() => {
-    if (timeElement) {
-      let newNow: any = new Date();
-      timeElement.innerHTML =
-        newNow.getHours().toString().padStart(2, "0") +
-        ":" +
-        newNow.getMinutes().toString().padStart(2, "0") +
-        ":" +
-        newNow.getSeconds().toString().padStart(2, "0");
-    }
-    if (dateElement) {
-      let newNow: any = new Date();
-      dateElement.innerHTML =
-        polishDays[newNow.getDay()] +
-        ", " +
-        newNow.getDate() +
-        " " +
-        polishMonths[newNow.getMonth()] +
-        " " +
-        newNow.getFullYear();
-    }
-  }, 1000);
-
-  setInterval(() => {
-    if (timeElement) {
-      let newNow: any = new Date();
-      timeElement.innerHTML =
-        newNow.getHours().toString().padStart(2, "0") +
-        ":" +
-        newNow.getMinutes().toString().padStart(2, "0") +
-        ":" +
-        newNow.getSeconds().toString().padStart(2, "0");
-    }
-    if (dateElement) {
-      let newNow: any = new Date();
-      dateElement.innerHTML =
-        polishDays[newNow.getDay()] +
-        ", " +
-        newNow.getDate() +
-        " " +
-        polishMonths[newNow.getMonth()] +
-        " " +
-        newNow.getFullYear();
-    }
-  }, 1000);
+  const { time, date } = useClock();
 
   return (
-    <div
-      style={{
-        color: "black",
-        fontSize: "18px",
-        fontWeight: "bold",
-        minWidth: "70px",
-        textAlign: "center",
-        fontFamily: "monospace",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "4px",
-      }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "8px",
-        }}>
+    <div className="text-black text-lg font-bold min-w-[70px] text-center font-mono flex flex-col items-center gap-1">
+      <div className="flex items-center gap-2">
         <ClockIcon size={18} />
-        <span
-          ref={(el: any) => {
-            timeElement = el;
-          }}>
-          {time}
-        </span>
+        <span>{time}</span>
       </div>
-      <div
-        ref={(el: any) => {
-          dateElement = el;
-        }}
-        style={{
-          fontSize: "12px",
-          color: "#666",
-          fontWeight: "normal",
-        }}>
-        {dateStr}
+      <div className="text-xs text-gray-600 font-normal">
+        {date}
       </div>
     </div>
   );
