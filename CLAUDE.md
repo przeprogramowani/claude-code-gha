@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an Astro application emulating ChatGPT 10, built with React and Tailwind CSS. The project uses Astro's server-side rendering (SSR) mode and runs on port 3000 in development.
+This is an Astro application emulating 10xChat, built with React and Tailwind CSS. The project uses Astro's server-side rendering (SSR) mode and runs on port 3000 in development.
 
 ## Development Commands
 

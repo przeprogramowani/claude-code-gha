@@ -20,7 +20,7 @@ export default function MobileHeader({ onMenuClick }: MobileHeaderProps) {
         </button>
 
         <div className="text-center flex-1 mx-4">
-          <h1 className="text-lg font-semibold text-gray-900 truncate">{activeThread?.title || "ChatGPT 10"}</h1>
+          <h1 className="text-lg font-semibold text-gray-900 truncate">{activeThread?.title || "10xChat"}</h1>
         </div>
 
         <div className="w-10" />
