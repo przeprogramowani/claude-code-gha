@@ -3,9 +3,11 @@ name: Code Review for PRs
 on:
   pull_request:
     branches: [master]
+    types: [labeled]
 
 jobs:
   code-review:
+    if: contains(github.event.label.name, 'claude-code-review')
     runs-on: ubuntu-latest
     permissions:
       contents: read
