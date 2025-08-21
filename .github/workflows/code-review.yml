@@ -1,11 +1,11 @@
-name: Pull Request Analysis
+name: Code Review for PRs
 
 on:
   pull_request:
     branches: [master]
 
 jobs:
-  analyze:
+  code-review:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -29,6 +29,13 @@ jobs:
 
       - name: Install Claude Code SDK
         run: npm install -g @anthropic-ai/claude-code
+
+      - name: Comment PR with Claude Code Review
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: claude-code-review
+          message: 🔎 Code Review w trakcie...
 
       - name: Run Claude Code Review
         run: |
