@@ -6,6 +6,7 @@ import ChatSidebar from "./ChatSidebar";
 import MobileHeader from "./MobileHeader";
 import { useChatStore } from "../stores/chatStore";
 import { useChatMigration } from "../hooks/useChatMigration";
+import Clock from "./Clock";
 
 export default function ChatInterface() {
   const [isLoading, setIsLoading] = useState(false);
@@ -145,6 +146,9 @@ export default function ChatInterface() {
           <div className="flex justify-between items-center">
             <div className="flex-1">
               <h1 className="text-xl font-semibold text-gray-900">{activeThread?.title}</h1>
+            </div>
+            <div className="flex justify-end">
+              <Clock />
             </div>
           </div>
         </div>
